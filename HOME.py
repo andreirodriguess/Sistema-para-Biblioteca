@@ -1,5 +1,5 @@
 def linha():
-    print("-"*20)
+    print("-"*30)
 
 option = 1
 while option != 0:
@@ -15,10 +15,11 @@ while option != 0:
     ------------------------------""")
 
     while True:
+        #tratamento de erros de entrada
         option = input(":")
-        if(option.isnumeric()):
+        if option.isnumeric():
             option = int(option)
-            break
+            break#saio do loop, recebi um valor numerico
         else:
             print("digite uma opção valida\n")
     if option == 0:
@@ -41,14 +42,19 @@ while option != 0:
             dados.write(sexo)
     elif option == 3:
         nome_apagado = input("Digite o nome da pessoa que deseja apagar: ")
+        
         with open("dados.txt", "r") as dados:
             linhas = dados.readlines()
+        encontrado = False
         with open("dados.txt", "w") as dados:
             for l in linhas:
-                if nome_apagado not in l: #se o nome não estiver na linha, eu adiciono ela
+                if nome_apagado not in l and encontrado == False: #se o nome não estiver na linha, eu adiciono ela
                     dados.writelines(l)
                 else:
+                    encontrado = True
                     print(f"{nome_apagado} foi removido")
-                    
-                    
-                    
+            if encontrado == False:
+                print(f"{nome_apagado} não foi encontrado")
+    else:
+        print("digite um valor valido")
+    
