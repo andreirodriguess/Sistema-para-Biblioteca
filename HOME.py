@@ -1,60 +1,18 @@
-def linha():
-    print("-"*30)
-
+from lib.interface.menu import *
 option = 1
 while option != 0:
-    
-    print("""
-    ------------------------------
-    ESCOLHA UMA DAS OPCOES ABAIXO:
-    ------------------------------
-    1- PESSOAS REGISTRADAS:
-    2- REGISTRAR ALGUEM
-    3- REMOVER ALGUEM
-    0- SAIR
-    ------------------------------""")
-
-    while True:
-        #tratamento de erros de entrada
-        option = input(":")
-        if option.isnumeric():
-            option = int(option)
-            break#saio do loop, recebi um valor numerico
-        else:
-            print("digite uma opção valida\n")
+    tela()
+    option = leiaint(" : ")
     if option == 0:
         print("Volte sempre\n")
     #pessoa quer ver quais são os dados
     elif option == 1:
-        with open("dados.txt", "r") as dados:
-            conteudo = dados.read()
-            print(conteudo)
-        linha()
+        ver_dados()
     #adicionar alguem
     elif option == 2:
-        nome = "|nome : " + input("Digite o nome da pessoa: ")
-        idade = "|idade : " + input("Digite a idade: ") 
-        sexo = input("Digite o sexo: ") 
-        sexo = "|sexo : " + sexo[0].upper() + '\n'
-        with open("dados.txt", "a") as dados:
-            dados.write(nome)
-            dados.write(idade)
-            dados.write(sexo)
+        registrar_pessoa()
     elif option == 3:
-        nome_apagado = input("Digite o nome da pessoa que deseja apagar: ")
-        
-        with open("dados.txt", "r") as dados:
-            linhas = dados.readlines()
-        encontrado = False
-        with open("dados.txt", "w") as dados:
-            for l in linhas:
-                if nome_apagado not in l and encontrado == False: #se o nome não estiver na linha, eu adiciono ela
-                    dados.writelines(l)
-                else:
-                    encontrado = True
-                    print(f"{nome_apagado} foi removido")
-            if encontrado == False:
-                print(f"{nome_apagado} não foi encontrado")
+        apagar_pessoa()
     else:
         print("digite um valor valido")
     
